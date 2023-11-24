@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/mailer");
+const UserModel = require("../model/userModel");
 
 const userRouter = express.Router();
 
@@ -23,9 +24,13 @@ userRouter.post("/create", (req, res) => {
   res.status(200).json({ success: true, message: "User Activation link sent" });
 });
 
-userRouter.get("/activation", (req, res) => {
+userRouter.get("/activation", async (req, res) => {
   const { token } = req.query;
   console.log("Token :: ", token);
+
+  const { name, email, password } = jwt.verify(token, process.env.JWT_SECRET);
+  const userCreated = await UserModel.create({ name, email, password });
+  console.log("User Created :: ", userCreated);
 
   res.status(200).send("User Activated");
 });

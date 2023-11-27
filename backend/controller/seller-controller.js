@@ -1,18 +1,18 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../utils/mailer");
-const UserModel = require("../model/User");
+const Shop = require("../model/Shop");
 const LWPError = require("../utils/error");
 const sendToken = require("../utils/jwtToken");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
-const userRouter = express.Router();
+const sellerRouter = express.Router();
 
-userRouter.get("/", (req, res) => {
-  res.send("userRouter");
+sellerRouter.get("/", (req, res) => {
+  res.send("sellerRouter");
 });
 
-userRouter.post(
+sellerRouter.post(
   "/create",
   catchAsyncErrors(async (req, res, next) => {
     const { name, email, password } = req.body;
@@ -29,18 +29,18 @@ userRouter.post(
     // Check if the email is in a valid format
     // Regex
 
-    const allUsers = await UserModel.find({ email });
+    const allSellers = await Shop.find({ email });
 
-    const isEmailExists = allUsers.length > 0;
+    const isEmailExists = allSellers.length > 0;
     if (isEmailExists) {
       return next(
-        new LWPError("User with the provided email already exists", 400)
+        new LWPError("Seller with the provided email already exists", 400)
       );
     }
 
     const activationToken = createActivationToken({ name, email, password });
     // TODO change the port
-    const activationUrl = `http://localhost:8080/api/v1/user/activation/?token=${activationToken}`;
+    const activationUrl = `http://localhost:8080/api/v1/seller/activation/?token=${activationToken}`;
     await sendMail({
       email: email,
       subject: "Please Activate Your Account",
@@ -48,11 +48,11 @@ userRouter.post(
     });
     res
       .status(200)
-      .json({ success: true, message: "User Activation link sent" });
+      .json({ success: true, message: "Seller Activation link sent" });
   })
 );
 
-userRouter.get(
+sellerRouter.get(
   "/activation",
   catchAsyncErrors(async (req, res, next) => {
     try {
@@ -63,28 +63,28 @@ userRouter.get(
         process.env.JWT_SECRET
       );
 
-      const allUsers = await UserModel.find({ email });
+      const allSellers = await Shop.find({ email });
 
-      const isEmailExists = allUsers.length > 0;
+      const isEmailExists = allSellers.length > 0;
       if (isEmailExists) {
         return next(
-          new LWPError("User with the provided email already exists", 401)
+          new LWPError("Seller with the provided email already exists", 401)
         );
       }
 
-      const userCreated = await UserModel.create({ name, email, password });
-      sendToken(userCreated, 201, res);
+      const sellerCreated = await Shop.create({ name, email, password });
+      sendToken(sellerCreated, 201, res);
     } catch (err) {
       return next(new LWPError(err, 500));
     }
   })
 );
 
-const createActivationToken = (userData) => {
-  return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: "22h" });
+const createActivationToken = (sellerData) => {
+  return jwt.sign(sellerData, process.env.JWT_SECRET, { expiresIn: "22h" });
 };
 
-userRouter.post(
+sellerRouter.post(
   "/login",
   catchAsyncErrors(async (req, res, next) => {
     try {
@@ -93,24 +93,24 @@ userRouter.post(
       if (!email || !password) {
         return next(new LWPError("Email and password are required", 400));
       }
-      const user = await UserModel.findOne({ email }).select("+password");
-      if (!user) {
+      const seller = await Shop.findOne({ email }).select("+password");
+      if (!seller) {
         return next(
-          new LWPError("User with the provided email not found", 404)
+          new LWPError("Seller with the provided email not found", 404)
         );
       }
 
-      const isPasswordMatched = await user.comparePassword(password);
+      const isPasswordMatched = await seller.comparePassword(password);
 
       if (!isPasswordMatched) {
         return next(new LWPError("The provided password doesn't match", 401));
       }
 
-      sendToken(user, 200, res);
+      sendToken(seller, 200, res);
     } catch (err) {
       return next(new LWPError(err, 500));
     }
   })
 );
 
-module.exports = userRouter;
+module.exports = sellerRouter;

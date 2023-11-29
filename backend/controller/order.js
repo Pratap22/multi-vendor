@@ -9,7 +9,7 @@ orderRouter.post(
   "/",
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const { cart, shippingAddress, user, totalPrice, paymentInfo } = req.body;
+      const { cart, shippingAddress, userId, totalPrice, paymentInfo } = req.body;
 
       //   group cart items by shopId
       const shopItemsMap = new Map();
@@ -29,7 +29,7 @@ orderRouter.post(
         const order = await Order.create({
           cart: items,
           shippingAddress,
-          user,
+          userId,
           totalPrice,
           paymentInfo,
         });
@@ -65,7 +65,7 @@ orderRouter.get(
 );
 
 // get all orders of seller
-router.get(
+orderRouter.get(
   "/shop/:shopId",
   catchAsyncErrors(async (req, res, next) => {
     try {
@@ -84,3 +84,5 @@ router.get(
     }
   })
 );
+
+module.exports = orderRouter;

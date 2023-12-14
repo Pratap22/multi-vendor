@@ -105,7 +105,7 @@ userRouter.post(
       if (!isPasswordMatched) {
         return next(new LWPError("The provided password doesn't match", 401));
       }
-
+      user.password = undefined;
       sendToken(user, 200, res);
     } catch (err) {
       return next(new LWPError(err, 500));

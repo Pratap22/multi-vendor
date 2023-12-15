@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import lwpStyles from "../../styles";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { signupAsync } from "../../redux/actions/user";
+import { createUserAsync } from "../../redux/actions/user";
+import { AxiosError } from "axios";
 
 const Register = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,15 +18,14 @@ const Register = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    dispatch(signupAsync({ email, password }))
-      .then(() => {
-        toast.success("Login Success!");
-        navigate("/");
-        window.location.reload();
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
+    try {
+      await dispatch(createUserAsync({ name, email, password }));
+      toast.success("Create Success! Check your email");
+      navigate("/");
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message || "An error occurred");
+    }
   };
 
   return (

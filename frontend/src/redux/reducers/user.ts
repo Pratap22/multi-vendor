@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAsync, signupAsync } from "../actions/user";
+import { loginAsync, createUserAsync } from "../actions/user";
 
 interface User {
   _id: string;
@@ -43,14 +43,14 @@ const userSlice = createSlice({
         state.error = action.error.message || "An error occurred";
         throw action.error;
       })
-      .addCase(signupAsync.pending, (state) => {
+      .addCase(createUserAsync.pending, (state) => {
         state.loading = "pending";
         state.error = null;
       })
-      .addCase(signupAsync.fulfilled, (state) => {
+      .addCase(createUserAsync.fulfilled, (state) => {
         state.loading = "succeeded";
       })
-      .addCase(signupAsync.rejected, (state, action) => {
+      .addCase(createUserAsync.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "An error occurred";
       });

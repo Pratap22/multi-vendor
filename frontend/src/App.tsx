@@ -14,7 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/activation/:activationToken"
+          path="/activation/:token"
           element={<ActivationPage />}
         />
         <Route path="/" index element={<Home />} />

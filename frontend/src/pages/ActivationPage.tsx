@@ -4,18 +4,18 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ActivationPage = () => {
-  const { activation_token } = useParams();
+  const { token } = useParams();
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (activation_token) {
+    if (token) {
       const sendRequest = async () => {
         await axios
           .post(`/user/activation`, {
-            activation_token,
+            token,
           })
           .then((res) => {
-            console.log(res);
+            // Success -> Home
           })
           .catch(() => {
             setError(true);

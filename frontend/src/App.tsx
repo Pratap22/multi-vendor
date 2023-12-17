@@ -2,9 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import ActivationPage from "./pages/ActivationPage";
+import Login from "./pages/auth/user/Login";
+import Register from "./pages/auth/user/Register";
+import ActivationPage from "./pages/activation/ActivationPage";
 import Home from "./pages/Home";
 
 function App() {
@@ -15,6 +15,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route
           path="/activation/:token"
+          element={<ActivationPage />}
+        />
+        <Route
+          path="/seller-activation/:token"
           element={<ActivationPage />}
         />
         <Route path="/" index element={<Home />} />

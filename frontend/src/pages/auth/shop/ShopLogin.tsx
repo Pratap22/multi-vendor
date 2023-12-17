@@ -1,16 +1,12 @@
+import * as React from 'react';
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import lwpStyles from "../../styles";
-import { loginAsync } from "../../redux/actions/user";
-import { AppDispatch } from "../../redux/store";
-import { AxiosError } from "axios";
+import lwpStyles from "../../../styles";
 
-const Login = () => {
-  const dispatch = useDispatch<AppDispatch>();
+const ShopLogin = () => {
   const navigate = useNavigate();
+  console.log(navigate);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -18,21 +14,13 @@ const Login = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    try {
-      await dispatch(loginAsync({ email, password, rememberMe}));
-      toast.success("Login Success!");
-      navigate("/");
-    } catch (error) {
-      const axiosError = error as AxiosError;
-      toast.error(axiosError.message || "An error occurred");
-    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your account
+          Login to your Shop
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -126,9 +114,9 @@ const Login = () => {
               </button>
             </div>
             <div className={`${lwpStyles.noramlFlex} w-full`}>
-              <h4>Not have any account?</h4>
-              <Link to="/register" className="text-blue-600 pl-2">
-                Register
+              <h4>Not have an account?</h4>
+              <Link to="/shop-register" className="text-blue-600 pl-2">
+                Register Shop
               </Link>
             </div>
           </form>
@@ -138,4 +126,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ShopLogin;

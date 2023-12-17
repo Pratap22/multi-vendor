@@ -2,10 +2,10 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import lwpStyles from "../../styles";
-import { AppDispatch } from "../../redux/store";
+import lwpStyles from "../../../styles";
+import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
-import { createUserAsync } from "../../redux/actions/user";
+import { createUserAsync } from "../../../redux/actions/user";
 import { AxiosError } from "axios";
 
 const Register = () => {

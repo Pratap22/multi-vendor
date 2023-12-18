@@ -1,82 +1,76 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  loginAsync,
-  createUserAsync,
-  activateUserAsync,
-  autoLoginAsync,
-} from "../actions/user";
+  shopLoginAsync,
+  createShopAsync,
+  activateShopAsync,
+} from "../actions/shop";
 
-interface User {
+interface Shop {
   _id: string;
   name: string;
   email: string;
 }
-interface UserState {
+interface ShopState {
   loading: "idle" | "pending" | "succeeded" | "failed";
   isAuthenticated: boolean;
   error: string | null;
-  user: User | null;
+  shop: Shop | null;
 }
 
-const initialState: UserState = {
+const initialState: ShopState = {
   loading: "idle",
   isAuthenticated: false,
   error: null,
-  user: null,
+  shop: null,
 };
 
-const userSlice = createSlice({
-  name: "user",
+const shopSlice = createSlice({
+  name: "shop",
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginAsync.pending, (state) => {
+      .addCase(shopLoginAsync.pending, (state) => {
         state.loading = "pending";
         state.error = null;
       })
-      .addCase(loginAsync.fulfilled, (state, action) => {
+      .addCase(shopLoginAsync.fulfilled, (state, action) => {
         state.loading = "succeeded";
         state.isAuthenticated = true;
-        state.user = action.payload.user;
+        state.shop = action.payload.user;
       })
-      .addCase(loginAsync.rejected, (state, action) => {
+      .addCase(shopLoginAsync.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "An error occurred";
         throw action.error;
       })
-      .addCase(createUserAsync.pending, (state) => {
+      .addCase(createShopAsync.pending, (state) => {
         state.loading = "pending";
         state.error = null;
       })
-      .addCase(createUserAsync.fulfilled, (state) => {
+      .addCase(createShopAsync.fulfilled, (state) => {
         state.loading = "succeeded";
       })
-      .addCase(createUserAsync.rejected, (state, action) => {
+      .addCase(createShopAsync.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "An error occurred";
         throw action.error;
       })
-      .addCase(activateUserAsync.pending, (state) => {
+      .addCase(activateShopAsync.pending, (state) => {
         state.loading = "pending";
         state.error = null;
       })
-      .addCase(activateUserAsync.fulfilled, (state, action) => {
+      .addCase(activateShopAsync.fulfilled, (state, action) => {
         state.loading = "succeeded";
         state.isAuthenticated = true;
-        state.user = action.payload.user;
+        state.shop = action.payload.user;
       })
-      .addCase(activateUserAsync.rejected, (state, action) => {
+      .addCase(activateShopAsync.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "An error occurred";
         throw action.error;
-      })
-      .addCase(autoLoginAsync.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.isAuthenticated = true;
-        state.user = action.payload.user;
       });
   },
 });
 
-export default userSlice;
+export default shopSlice;

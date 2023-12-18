@@ -11,6 +11,18 @@ const shopSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your email!"],
   },
+  phoneNumber: {
+    type: String,
+    required: [true, "Please enter your phoneNumber!"],
+  },
+  address: {
+    type: String,
+    required: [true, "Please enter your address!"],
+  },
+  zipCode: {
+    type: String,
+    required: [true, "Please enter your zipCode!"],
+  },
   password: {
     type: String,
     required: [true, "Please enter your password"],

@@ -1,10 +1,16 @@
-import * as React from 'react';
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import lwpStyles from "../../../styles";
+import { AppDispatch } from "../../../redux/store";
+import { createShopAsync } from "../../../redux/actions/shop";
+import { AxiosError } from "axios";
 
 const ShopRegister = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,14 +21,30 @@ const ShopRegister = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    
+    try {
+      await dispatch(
+        createShopAsync({
+          name,
+          email,
+          password,
+          zipCode,
+          phoneNumber,
+          address,
+        })
+      );
+      toast.success("Create Success! Check your email");
+      navigate("/");
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message || "An error occurred");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Register as a seller
+          Register as a Shop
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-[35rem]">

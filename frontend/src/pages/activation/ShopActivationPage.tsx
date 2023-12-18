@@ -1,12 +1,12 @@
-import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { activateUserAsync } from "../../redux/actions/user";
 import { AppDispatch } from "../../redux/store";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { activateShopAsync } from "../../redux/actions/shop";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
-const ActivationPage = () => {
+const ShopActivationPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { token } = useParams();
@@ -16,21 +16,20 @@ const ActivationPage = () => {
     if (token) {
       const sendRequest = async () => {
         try {
-          await dispatch(activateUserAsync(token));
-          toast.success("User Successfully Activated!");
-          navigate("/login");
+          await dispatch(activateShopAsync(token));
+          toast.success("Shop Successfully Activated!");
+          navigate("/shop-login");
         } catch (error) {
           const axiosError = error as AxiosError;
-          setError("An error occurred while activating user");
+          setError("An error occurred while activating shop");
           toast.error(
-            axiosError.message || "An error occurred while activating user"
+            axiosError.message || "An error occurred while activating shop"
           );
         }
       };
       sendRequest();
     }
   }, []);
-
   return (
     <div
       style={{
@@ -41,9 +40,9 @@ const ActivationPage = () => {
         alignItems: "center",
       }}
     >
-      <p>{error || "User Activation Page"}</p>
+      <p>{error || "Shop Activation Page"}</p>
     </div>
   );
 };
 
-export default ActivationPage;
+export default ShopActivationPage;

@@ -1,12 +1,17 @@
-import * as React from 'react';
+import * as React from "react";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import lwpStyles from "../../../styles";
+import { shopLoginAsync } from "../../../redux/actions/shop";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/store";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 const ShopLogin = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  console.log(navigate);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -14,6 +19,14 @@ const ShopLogin = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    try {
+      await dispatch(shopLoginAsync({ email, password, rememberMe }));
+      toast.success("Login Success!");
+      navigate("/");
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message || "An error occurred");
+    }
   };
 
   return (

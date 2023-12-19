@@ -14,15 +14,15 @@ shopRouter.get(
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const seller = await Shop.findById(req.seller._id);
+      const shop = await Shop.findById(req.shop._id);
 
-      if (!seller) {
-        return next(new ErrorHandler("User doesn't exists", 400));
+      if (!shop) {
+        return next(new ErrorHandler("Shop doesn't exists", 400));
       }
 
       res.status(200).json({
         success: true,
-        seller,
+        user: shop,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
@@ -68,7 +68,6 @@ shopRouter.post(
       address,
       zipCode,
     });
-    // TODO change the port
     const activationUrl = `http://localhost:5173/shop-activation/${activationToken}`;
     await sendMail({
       email: email,

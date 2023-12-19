@@ -3,6 +3,7 @@ import {
   shopLoginAsync,
   createShopAsync,
   activateShopAsync,
+  shopAutoLoginAsync,
 } from "../actions/shop";
 
 interface Shop {
@@ -68,6 +69,18 @@ const shopSlice = createSlice({
       .addCase(activateShopAsync.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "An error occurred";
+        throw action.error;
+      })
+      .addCase(shopAutoLoginAsync.pending, (state) => {
+        state.loading = "pending";
+      })
+      .addCase(shopAutoLoginAsync.fulfilled, (state, action) => {
+        state.loading = "succeeded";
+        state.isAuthenticated = true;
+        state.shop = action.payload.user;
+      })
+      .addCase(shopAutoLoginAsync.rejected, (state, action) => {
+        state.loading = "failed";
         throw action.error;
       });
   },

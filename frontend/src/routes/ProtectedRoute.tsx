@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { RootState } from "../redux/store";
+import { LWPState } from "../redux/store";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -9,9 +9,9 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { loading, isAuthenticated } = useSelector(
-    (state: RootState) => state.user
+    (state: LWPState) => state.user
   );
-  if (loading === 'idle') {
+  if (loading === "idle") {
     if (!isAuthenticated) {
       return <Navigate to="/login" replace />;
     }

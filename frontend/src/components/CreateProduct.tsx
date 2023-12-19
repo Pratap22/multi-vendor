@@ -12,6 +12,7 @@ const CreateProduct = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    
   };
 
   return (

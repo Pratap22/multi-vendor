@@ -28,12 +28,8 @@ productRouter.post(
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const shopId = req.body.shopId;
-      const shop = await Shop.findById(shopId);
-      if (!shop) {
-        return next(new LWPError("Shop Id is invalid!", 400));
-      }
       const productData = req.body;
+      productData.shopId = req.shop._id
 
       const product = await Product.create(productData);
 

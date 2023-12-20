@@ -13,6 +13,7 @@ import ShopProtectedRoute from "./routes/ShopProtectedRoute";
 import ShopDashboard from "./pages/shop/Dashboard";
 import ShopCreateProduct from "./pages/shop/CreateProduct";
 import NotFound from "./components/NotFound";
+import ShopAllProducts from "./pages/shop/AllProducts";
 
 function App() {
   return (
@@ -44,6 +45,15 @@ function App() {
             </ShopProtectedRoute>
           }
         />
+        <Route
+          path="/shop-products"
+          element={
+            <ShopProtectedRoute>
+              <ShopAllProducts />
+            </ShopProtectedRoute>
+          }
+        />
+        {/* <Route path="/product/:id" element={<ProductDetailsPage />} /> */}
         <Route path="/" index element={<Home />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

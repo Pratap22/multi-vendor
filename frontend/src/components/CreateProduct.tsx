@@ -1,18 +1,44 @@
 import { useState } from "react";
 import { categoriesData } from "../static/data";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { createProductAsync } from "../redux/actions/product";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 const CreateProduct = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState("");
-  const [originalPrice, setOriginalPrice] = useState("");
-  const [discountPrice, setDiscountPrice] = useState("");
-  const [stock, setStock] = useState("");
+  const [originalPrice, setOriginalPrice] = useState(0);
+  const [discountPrice, setDiscountPrice] = useState(0);
+  const [stock, setStock] = useState(0);
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    
+    try {
+      await dispatch(
+        createProductAsync({
+          name,
+          description,
+          category,
+          tags,
+          originalPrice,
+          discountPrice,
+          stock,
+        })
+      );
+      toast.success("Product create Success!");
+      navigate("/shop-products");
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message || "An error occurred");
+    }
   };
 
   return (
@@ -88,7 +114,7 @@ const CreateProduct = () => {
             name="price"
             value={originalPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setOriginalPrice(e.target.value)}
+            onChange={(e) => setOriginalPrice(Number(e.target.value))}
             placeholder="Enter your product price..."
           />
         </div>
@@ -102,7 +128,7 @@ const CreateProduct = () => {
             name="price"
             value={discountPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setDiscountPrice(e.target.value)}
+            onChange={(e) => setDiscountPrice(Number(e.target.value))}
             placeholder="Enter your product price with discount..."
           />
         </div>
@@ -116,7 +142,7 @@ const CreateProduct = () => {
             name="price"
             value={stock}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setStock(e.target.value)}
+            onChange={(e) => setStock(Number(e.target.value))}
             placeholder="Enter your product stock..."
           />
         </div>

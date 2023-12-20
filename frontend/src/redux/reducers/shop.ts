@@ -79,9 +79,8 @@ const shopSlice = createSlice({
         state.isAuthenticated = true;
         state.shop = action.payload.user;
       })
-      .addCase(shopAutoLoginAsync.rejected, (state, action) => {
+      .addCase(shopAutoLoginAsync.rejected, (state) => {
         state.loading = "failed";
-        throw action.error;
       });
   },
 });

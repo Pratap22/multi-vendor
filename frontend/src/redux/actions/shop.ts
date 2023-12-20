@@ -64,17 +64,20 @@ export const activateShopAsync = createAsyncThunk(
   }
 );
 
-export const shopAutoLoginAsync = createAsyncThunk("shop/autoLogin", async () => {
-  try {
-    const response = await lwpAxios.get("/shop", {
-      withCredentials: true,
-    });
-    return response.data;
-  } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      throw new Error("Login failed: " + error.response?.data.message);
-    } else {
-      return Promise.reject();
+export const shopAutoLoginAsync = createAsyncThunk(
+  "shop/autoLogin",
+  async () => {
+    try {
+      const response = await lwpAxios.get("/shop", {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        throw new Error("Login failed: " + error.response?.data.message);
+      } else {
+        return Promise.reject();
+      }
     }
   }
-});
+);

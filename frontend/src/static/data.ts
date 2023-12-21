@@ -35,19 +35,6 @@ export const categoriesData = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvBQPQMVNRd6TtDkGs2dCri0Y-rxKkFOiEWw&usqp=CAU",
   },
   {
-    id: 6,
-    title: "Gifts",
-    subTitle: "",
-    image_Url:
-      "https://securecdn.pymnts.com/wp-content/uploads/2014/11/Gifts-Photo-700x489.jpg",
-  },
-  {
-    id: 7,
-    title: "Pet Care",
-    subTitle: "",
-    image_Url: "https://cdn.openpr.com/T/c/Tc15444071_g.jpg",
-  },
-  {
     id: 8,
     title: "Mobile and Tablets",
     subTitle: "",
@@ -67,5 +54,76 @@ export const categoriesData = [
     subTitle: "",
     image_Url:
       "https://searchspring.com/wp-content/uploads/2022/10/Hero-Image-Platform-Others-2.png",
+  },
+];
+
+export const navItems = [
+  {
+    title: "Home",
+    url: "/",
+  },
+  {
+    title: "Best Selling",
+    url: "/best-selling",
+  },
+  {
+    title: "Products",
+    url: "/products",
+  },
+];
+
+export const footerProductLinks = [
+  {
+    name: "About us",
+    link: "/about",
+  },
+  {
+    name: "Careers",
+    link: "/carrers",
+  },
+  {
+    name: "Store Locations",
+  },
+  {
+    name: "Our Blog",
+  },
+  {
+    name: "Reviews",
+  },
+];
+
+export const footercompanyLinks = [
+  {
+    name: "Game & Video",
+  },
+  {
+    name: "Phone &Tablets",
+  },
+  {
+    name: "Computers & Laptop",
+  },
+  {
+    name: "Sport Watches",
+  },
+  {
+    name: "Events",
+  },
+];
+
+export const footerSupportLinks = [
+  {
+    name: "FAQ",
+  },
+  {
+    name: "Reviews",
+  },
+  {
+    name: "Contact Us",
+  },
+  {
+    name: "Shipping",
+  },
+  {
+    name: "Live chat",
   },
 ];

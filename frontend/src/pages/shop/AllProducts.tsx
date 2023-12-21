@@ -1,87 +1,81 @@
-// import Loader from "../../components/Loader";
+import Loader from "../../components/Loader";
+import { useDispatch, useSelector } from "react-redux";
 import ShopHeader from "./Header";
+import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import ShopSideBar from "./SideBar";
+import { AppDispatch, LWPState } from "../../redux/store";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import { DataGrid, GridColDef } from "@material-ui/data-grid";
+import { deletelProductAsync } from "../../redux/actions/product";
 
 const ShopAllProducts = () => {
-  // const columns = [
-  //     { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
-  //     {
-  //       field: "name",
-  //       headerName: "Name",
-  //       minWidth: 180,
-  //       flex: 1.4,
-  //     },
-  //     {
-  //       field: "price",
-  //       headerName: "Price",
-  //       minWidth: 100,
-  //       flex: 0.6,
-  //     },
-  //     {
-  //       field: "Stock",
-  //       headerName: "Stock",
-  //       type: "number",
-  //       minWidth: 80,
-  //       flex: 0.5,
-  //     },
+  const dispatch = useDispatch<AppDispatch>();
+  const { products, loading } = useSelector((state: LWPState) => state.product);
+  const { shop } = useSelector((state: LWPState) => state.shop);
 
-  //     {
-  //       field: "sold",
-  //       headerName: "Sold out",
-  //       type: "number",
-  //       minWidth: 130,
-  //       flex: 0.6,
-  //     },
-  //     {
-  //       field: "Preview",
-  //       flex: 0.8,
-  //       minWidth: 100,
-  //       headerName: "",
-  //       type: "number",
-  //       sortable: false,
-  //       renderCell: (params) => {
-  //         return (
-  //           <>
-  //             <Link to={`/product/${params.id}`}>
-  //               <Button>
-  //                 <AiOutlineEye size={20} />
-  //               </Button>
-  //             </Link>
-  //           </>
-  //         );
-  //       },
-  //     },
-  //     {
-  //       field: "Delete",
-  //       flex: 0.8,
-  //       minWidth: 120,
-  //       headerName: "",
-  //       type: "number",
-  //       sortable: false,
-  //       renderCell: (params) => {
-  //         return (
-  //           <>
-  //             <Button onClick={() => handleDelete(params.id)}>
-  //               <AiOutlineDelete size={20} />
-  //             </Button>
-  //           </>
-  //         );
-  //       },
-  //     },
-  //   ];
+  const columns: GridColDef[] = [
+    {
+      field: "name",
+      headerName: "Name",
+      minWidth: 180,
+      flex: 1.4,
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      minWidth: 120,
+      flex: 1.4,
+    },
+    {
+      field: "Stock",
+      headerName: "Stock",
+      type: "number",
+      minWidth: 100,
+      flex: 1.4,
+    },
+    {
+      field: "Preview",
+      flex: 0.8,
+      minWidth: 180,
+      headerName: "",
+      type: "number",
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={`/product/${params.id}`}>
+              <Button>
+                <AiOutlineEye size={20} />
+              </Button>
+            </Link>
+          </>
+        );
+      },
+    },
+    {
+      field: "Delete",
+      flex: 0.8,
+      minWidth: 120,
+      headerName: "",
+      type: "number",
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <>
+            <Button
+              onClick={() => {
+                dispatch(deletelProductAsync(params.id.toString()));
+              }}
+            >
+              <AiOutlineDelete size={20} />
+            </Button>
+          </>
+        );
+      },
+    },
+  ];
 
-  //   const row = [];
-
-  //   products &&
-  //     products.forEach((item) => {
-  //       row.push({
-  //         id: item._id,
-  //         name: item.name,
-  //         price: "US$ " + item.discountPrice,
-  //         Stock: item.stock,
-  //         sold: item?.sold_out,
-  //       });
-  //     });
   return (
     <div>
       <ShopHeader />
@@ -90,20 +84,26 @@ const ShopAllProducts = () => {
           <ShopSideBar active={3} />
         </div>
         <div className="w-full justify-center flex">
-          <p>All product</p>
-          {/* {isLoading ? (
+          {loading === "pending" ? (
             <Loader />
           ) : (
             <div className="w-full mx-8 pt-1 mt-10 bg-white">
               <DataGrid
-                rows={row}
+                rows={products
+                  .filter((product) => product.shopId === shop?._id)
+                  .map((product) => ({
+                    id: product._id!,
+                    name: product.name,
+                    price: "US$ " + product.discountPrice,
+                    Stock: product.stock,
+                  }))}
                 columns={columns}
-                pageSize={10}
+                pageSize={100}
                 disableSelectionOnClick
                 autoHeight
               />
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
+import Header from "../components/layout/Header";
+
 const Home = () => {
   return (
     <div>
-      <h1>HomePage</h1>
+      <Header activeHeading={1} />
     </div>
   );
 };

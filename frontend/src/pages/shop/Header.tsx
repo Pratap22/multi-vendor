@@ -1,15 +1,10 @@
 import { AiOutlineGift } from "react-icons/ai";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import { FiPackage, FiShoppingBag } from "react-icons/fi";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
-import { LWPState } from "../../redux/store";
 
 const ShopHeader = () => {
-  const { shop } = useSelector((state: LWPState) => state.shop);
-  console.log("Shop ", shop);
-
   return (
     <div className="w-full h-[80px] bg-white shadow sticky top-0 left-0 z-30 flex items-center justify-between px-4">
       <div>

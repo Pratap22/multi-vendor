@@ -12,7 +12,7 @@ const Navbar: React.FC<NavbarProps> = ({ active }) => {
     <div className={`block 800px:${lwpStyles.noramlFlex}`}>
       {navItems &&
         navItems.map((i, index) => (
-          <div className="flex">
+          <div className="flex" key={index}>
             <Link
               to={i.url}
               className={`${

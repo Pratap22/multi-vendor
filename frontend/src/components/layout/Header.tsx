@@ -45,7 +45,6 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
               <p>LWP - Logo</p>
             </Link>
           </div>
-          {/* search box */}
           <div className="w-[50%] relative">
             <input
               type="text"
@@ -78,7 +77,6 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
         <div
           className={`${lwpStyles.section} relative ${lwpStyles.noramlFlex} justify-between`}
         >
-          {/* categories */}
           <div onClick={() => setDropDown(!dropDown)}>
             <div className="relative h-[60px] mt-[10px] w-[270px] hidden 1000px:block">
               <BiMenuAltLeft size={30} className="absolute top-3 left-2" />
@@ -100,7 +98,6 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
               ) : null}
             </div>
           </div>
-          {/* navitems */}
           <div className={`${lwpStyles.noramlFlex}`}>
             <Navbar active={activeHeading} />
           </div>
@@ -133,13 +130,11 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
               </div>
             </div>
 
-            {/* cart popup */}
             {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
           </div>
         </div>
       </div>
 
-      {/* mobile header */}
       <div
         className={`${
           active === true ? "shadow-sm fixed top-0 left-0 z-10" : null

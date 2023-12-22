@@ -15,6 +15,7 @@ import ShopCreateProduct from "./pages/shop/CreateProduct";
 import NotFound from "./components/NotFound";
 import ShopAllProducts from "./pages/shop/AllProducts";
 import ProductDetails from "./pages/product/ProductDetail";
+import Products from "./pages/product/Product";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           path="/shop-activation/:token"
           element={<ShopActivationPage />}
         />
-
+        <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route
           path="/shop-dashboard"

@@ -1,9 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import lwpStyles from "../../styles";
 
-const Dropdown = ({ categoriesData, setDropDown }) => {
+interface Category {
+  id: number;
+  title: string;
+  subTitle: string;
+  image_Url: string;
+}
+
+interface DropdownProps {
+  categoriesData: Category[];
+  setDropDown: (value: boolean) => void;
+}
+
+const Dropdown: React.FC<DropdownProps> = ({ categoriesData, setDropDown }) => {
   const navigate = useNavigate();
-  const submitHandle = (item) => {
+  const submitHandle = (item: Category) => {
     navigate(`/products?category=${item.title}`);
     setDropDown(false);
     window.location.reload();

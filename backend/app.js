@@ -17,7 +17,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(requestMiddleware)
+app.use(requestMiddleware);
 
 app.get("/", (req, res) => {
   res.send("Home");

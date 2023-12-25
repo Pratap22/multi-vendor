@@ -19,7 +19,7 @@ interface HeaderProp {
 
 const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
   const { isAuthenticated } = useSelector((state: LWPState) => state.user);
-  const isSeller = true;
+  const isSeller = useSelector((state: LWPState) => state.shop.isAuthenticated);
   const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(false);
   const [dropDown, setDropDown] = useState(false);
@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
           </div>
 
           <div className={`${lwpStyles.button}`}>
-            <Link to={`${isSeller ? "/shop-dashboard" : "/shop-create"}`}>
+            <Link to={`${isSeller ? "/shop-dashboard" : "/shop-register"}`}>
               <h1 className="text-[#fff] flex items-center">
                 {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
                 <IoIosArrowForward className="ml-1" />
@@ -192,7 +192,7 @@ const Header: React.FC<HeaderProp> = ({ activeHeading }) => {
 
               <Navbar active={activeHeading} />
               <div className={`${lwpStyles.button} ml-4 !rounded-[4px]`}>
-                <Link to="/shop-create">
+                <Link to="/shop-register">
                   <h1 className="text-[#fff] flex items-center">
                     Become Seller <IoIosArrowForward className="ml-1" />
                   </h1>

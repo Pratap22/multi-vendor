@@ -10,7 +10,7 @@ interface CartProps {
 }
 
 const Cart: React.FC<CartProps> = ({ setOpenCart }) => {
-  const { cart } = useSelector(() => ({ cart: [] }));
+  const { cart } = useSelector(() => ({ cart: [1] }));
 
   return (
     <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">

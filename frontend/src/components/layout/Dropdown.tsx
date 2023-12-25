@@ -18,7 +18,6 @@ const Dropdown: React.FC<DropdownProps> = ({ categoriesData, setDropDown }) => {
   const submitHandle = (item: Category) => {
     navigate(`/products?category=${item.title}`);
     setDropDown(false);
-    window.location.reload();
   };
   return (
     <div className="pb-4 w-[270px] bg-[#fff] absolute z-30 rounded-b-md shadow-sm">

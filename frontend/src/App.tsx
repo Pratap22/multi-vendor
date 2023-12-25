@@ -16,6 +16,8 @@ import NotFound from "./components/NotFound";
 import ShopAllProducts from "./pages/shop/AllProducts";
 import ProductDetails from "./pages/product/ProductDetail";
 import Products from "./pages/product/Product";
+import BestSelling from "./pages/product/BestSelling";
+import TestSocket from "./pages/TestSocket";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
 
         <Route path="/shop-login" element={<ShopLogin />} />
         <Route path="/shop-register" element={<ShopRegister />} />
+        <Route path="/best-selling" element={<BestSelling />} />
+        <Route path="/test-socket" element={<TestSocket />} />
+
         <Route
           path="/shop-activation/:token"
           element={<ShopActivationPage />}
@@ -57,7 +62,6 @@ function App() {
             </ShopProtectedRoute>
           }
         />
-        {/* <Route path="/product/:id" element={<ProductDetailsPage />} /> */}
         <Route path="/" index element={<Home />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

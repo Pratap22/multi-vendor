@@ -9,3 +9,7 @@ export interface Product {
   stock: number;
   shopId?: number;
 }
+
+export interface CartProduct extends Product {
+  quantity: number;
+}

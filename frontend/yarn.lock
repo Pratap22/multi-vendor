@@ -323,6 +323,28 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@paypal/paypal-js@^7.0.0":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@paypal/paypal-js/-/paypal-js-7.1.1.tgz#3547cbb96f1692209c4b33cf0f8e69225c2e84a3"
+  integrity sha512-fVpExBrHINGHsyODYKBXSMinxrgPKzmVW7ZCaCqUaMl7kTSR1ZsVi2IhgLvsPpXF4LWSAMkPTP/J6aetQ6ZlNA==
+  dependencies:
+    promise-polyfill "^8.3.0"
+
+"@paypal/react-paypal-js@^8.1.3":
+  version "8.1.3"
+  resolved "https://registry.yarnpkg.com/@paypal/react-paypal-js/-/react-paypal-js-8.1.3.tgz#2a46bd864eee02efada370ca50fab5a5bf38f4ff"
+  integrity sha512-hEm27iYP/UHS3XPBhDdiK2U4PH1FxrOD5O3f9tstAVLJd82l/laCjq751HiESSm63PVOoFeKE41Fe1mYGab+oA==
+  dependencies:
+    "@paypal/paypal-js" "^7.0.0"
+    "@paypal/sdk-constants" "^1.0.122"
+
+"@paypal/sdk-constants@^1.0.122":
+  version "1.0.135"
+  resolved "https://registry.yarnpkg.com/@paypal/sdk-constants/-/sdk-constants-1.0.135.tgz#13cf6655197e92f5c1f3dbe71b6c8609aba7a6d0"
+  integrity sha512-ZIQgsmeLZVl2QZaX8nhf+6BJ7CDT54Fj1QaqKpHXVKJnN1qY5ht9kJq08hse3/bF/s4Ho0zlsFND12KUJYFaqQ==
+  dependencies:
+    hi-base32 "^0.5.0"
+
 "@reduxjs/toolkit@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-2.0.1.tgz#0a5233c1e35c1941b03aece39cceade3467a1062"
@@ -407,6 +429,18 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
+
+"@stripe/react-stripe-js@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-2.4.0.tgz#b69d383a2b13e1104c5766695e7a865899cc84fb"
+  integrity sha512-1jVQEL3OuhuzNlf4OdfqovHt+MkWh8Uh8xpLxx/xUFUDdF+7/kDOrGKy+xJO3WLCfZUL7NAy+/ypwXbbYZi0tg==
+  dependencies:
+    prop-types "^15.7.2"
+
+"@stripe/stripe-js@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-2.2.2.tgz#9c1318a3e09a6df0a667d54d7f6edb917670109d"
+  integrity sha512-LvFZRZEBoMe6vXC6RoOAIbXWo/0JDdndq43ekL9M6affcM7PtF5KALmwt91BazW7q49sbSl0l7TunWhhSwEW4w==
 
 "@swc/core-darwin-arm64@1.3.100":
   version "1.3.100"
@@ -842,6 +876,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+country-state-city@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/country-state-city/-/country-state-city-3.2.1.tgz#222f8b8bb5f4d3c0244a6e630f17c981b787ed80"
+  integrity sha512-kxbanqMc6izjhc/EHkGPCTabSPZ2G6eG4/97akAYHJUN4stzzFEvQPZoF8oXDQ+10gM/O/yUmISCR1ZVxyb6EA==
+
 cross-spawn@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
@@ -1258,6 +1297,11 @@ hasown@^2.0.0:
   integrity sha512-vUptKVTpIJhcczKBbgnS+RtcuYMB8+oNzPK2/Hp3hanz8JmpATdmmgLgSaadVREkDm+e2giHwY3ZRkyjSIDDFA==
   dependencies:
     function-bind "^1.1.2"
+
+hi-base32@^0.5.0:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/hi-base32/-/hi-base32-0.5.1.tgz#1279f2ddae2673219ea5870c2121d2a33132857e"
+  integrity sha512-EmBBpvdYh/4XxsnUybsPag6VikPYnN30td+vQk+GI3qpahVEG9+gTkG0aXVxTjBqQ5T6ijbWIu77O+C5WFWsnA==
 
 hoist-non-react-statics@^3.3.2:
   version "3.3.2"
@@ -1751,6 +1795,11 @@ prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
+
+promise-polyfill@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-8.3.0.tgz#9284810268138d103807b11f4e23d5e945a4db63"
+  integrity sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==
 
 prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.8.1"

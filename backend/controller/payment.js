@@ -1,16 +1,21 @@
 const express = require("express");
-const Stripe = require("stripe")
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const loadEnv = require("dotenv");
+const Stripe = require("stripe");
+
+loadEnv.config({
+  path: "config/.env",
+});
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 const paymentRouter = express.Router();
 
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 paymentRouter.post(
   "/process",
   catchAsyncErrors(async (req, res, next) => {
     const myPayment = await stripe.paymentIntents.create({
       amount: req.body.amount,
-      currency: "$",
+      currency: "usd",
       metadata: {
         company: "LearnWithPratap",
       },

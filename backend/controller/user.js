@@ -33,7 +33,7 @@ userRouter.get(
 userRouter.post(
   "/create",
   catchAsyncErrors(async (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { name, email, phoneNumber, password } = req.body;
 
     if (!name) {
       return next(new LWPError("Name cannot be empty", 400));
@@ -56,7 +56,7 @@ userRouter.post(
       );
     }
 
-    const activationToken = createActivationToken({ name, email, password });
+    const activationToken = createActivationToken({ name, email, password, phoneNumber });
     const activationUrl = `http://localhost:5173/activation/${activationToken}`;
     await sendMail({
       email: email,
@@ -75,7 +75,7 @@ userRouter.get(
     try {
       const { token } = req.params;
 
-      const { name, email, password } = jwt.verify(
+      const { name, email, phoneNumber, password } = jwt.verify(
         token,
         process.env.JWT_SECRET
       );
@@ -89,7 +89,7 @@ userRouter.get(
         );
       }
 
-      const userCreated = await UserModel.create({ name, email, password });
+      const userCreated = await UserModel.create({ name, email, password, phoneNumber });
       sendToken(userCreated, 201, res);
     } catch (err) {
       return next(new LWPError(err, 500));

@@ -9,6 +9,9 @@ import lwpStyles from "../../styles";
 
 const Checkout = () => {
   const { user, cart } = useSelector((state: LWPState) => state.user);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [address1, setAddress1] = useState("");
@@ -17,6 +20,9 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setName(user?.name || "");
+    setEmail(user?.email || "");
+    setPhoneNumber(user?.phoneNumber || "");
     window.scrollTo(0, 0);
   }, []);
 
@@ -77,7 +83,8 @@ const Checkout = () => {
                   <label className="block pb-2">Full Name</label>
                   <input
                     type="text"
-                    value={user!.name}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required
                     className={`${lwpStyles.input} !w-[95%]`}
                   />
@@ -86,8 +93,9 @@ const Checkout = () => {
                   <label className="block pb-2">Email Address</label>
                   <input
                     type="email"
-                    value={user!.email}
+                    value={email}
                     required
+                    onChange={(e) => setEmail(e.target.value)}
                     className={`${lwpStyles.input}`}
                   />
                 </div>
@@ -99,7 +107,8 @@ const Checkout = () => {
                   <input
                     type="number"
                     required
-                    value={"Phone nUmber"}
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
                     className={`${lwpStyles.input} !w-[95%]`}
                   />
                 </div>

@@ -5,6 +5,7 @@ import { AxiosError } from "axios";
 interface LoginData {
   name?: string;
   email: string;
+  phoneNumber?: string;
   password: string;
   rememberMe?: boolean;
 }

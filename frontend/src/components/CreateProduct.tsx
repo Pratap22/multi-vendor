@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { categoriesData } from "../static/data";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
-import { createProductAsync } from "../redux/actions/product";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import { useDispatch } from "react-redux";
+import { categoriesData } from "../static/data";
+import { AppDispatch } from "../redux/store";
+import { createProductAsync } from "../redux/actions/product";
 
 const CreateProduct = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,6 +19,7 @@ const CreateProduct = () => {
   const [originalPrice, setOriginalPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [stock, setStock] = useState(0);
+  const [images, setImages] = useState<Array<string | ArrayBuffer>>([]);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ const CreateProduct = () => {
           originalPrice,
           discountPrice,
           stock,
+          images
         })
       );
       toast.success("Product create Success!");
@@ -40,6 +43,25 @@ const CreateProduct = () => {
       toast.error(axiosError.message || "An error occurred");
     }
   };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+
+    setImages([]);
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImages((old) => [...old, reader.result!]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  console.log("Images :: ", images);
 
   return (
     <div className="w-[90%] 800px:w-[50%] bg-white  shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll">
@@ -147,7 +169,33 @@ const CreateProduct = () => {
           />
         </div>
         <br />
+
         <div>
+          <label className="pb-2">
+            Upload Images <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="file"
+            name=""
+            id="upload"
+            className="hidden"
+            multiple
+            onChange={handleImageChange}
+          />
+          <div className="w-full flex items-center flex-wrap">
+            <label htmlFor="upload">
+              <AiOutlinePlusCircle size={30} className="mt-3" color="#555" />
+            </label>
+            {images &&
+              images.map((i) => (
+                <img
+                  src={i?.toString()}
+                  key={i?.toString()}
+                  alt=""
+                  className="h-[120px] w-[120px] object-cover m-2"
+                />
+              ))}
+          </div>
           <div>
             <input
               type="submit"

@@ -8,6 +8,7 @@ export interface Product {
   discountPrice?: number;
   stock: number;
   shopId?: number;
+  images: Array<string | ArrayBuffer>;
 }
 
 export interface CartProduct extends Product {

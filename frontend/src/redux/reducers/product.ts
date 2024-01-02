@@ -32,7 +32,7 @@ const productSlice = createSlice({
         state.loading = "succeeded";
         state.error = null;
         const updatedProductList = state.products;
-        updatedProductList.unshift(action.payload);
+        updatedProductList.unshift(action.payload.product);
         state.products = updatedProductList;
       })
       .addCase(createProductAsync.rejected, (state, action) => {

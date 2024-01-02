@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const logger = require("../middleware/logger");
 
 const connectDatabase = () => {
   mongoose
@@ -7,6 +8,9 @@ const connectDatabase = () => {
     })
     .then((data) => {
       console.log(`mongod connected with server: ${data.connection.host}`);
+    })
+    .catch((error) => {
+      logger.error(error);
     });
 };
 

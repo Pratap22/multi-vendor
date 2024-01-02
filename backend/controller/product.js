@@ -1,4 +1,5 @@
 const express = require("express");
+const cloudinary = require("cloudinary");
 const LWPError = require("../utils/error");
 const Product = require("../model/Product");
 const Shop = require("../model/Shop");
@@ -28,8 +29,30 @@ productRouter.post(
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
+      let images = [];
+
+      if (typeof req.body.images === "string") {
+        images.push(req.body.images);
+      } else {
+        images = req.body.images;
+      }
+
+      const imagesLinks = [];
+
+      for (let i = 0; i < images.length; i++) {
+        const result = await cloudinary.v2.uploader.upload(images[i], {
+          folder: "products",
+        });
+
+        imagesLinks.push({
+          public_id: result.public_id,
+          url: result.secure_url,
+        });
+      }
+
       const productData = req.body;
-      productData.shopId = req.shop._id
+      productData.shopId = req.shop._id;
+      productData.images = imagesLinks;
 
       const product = await Product.create(productData);
 
@@ -65,7 +88,12 @@ productRouter.delete(
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
+
       const product = await Product.findByIdAndDelete(req.params.id);
+
+      for (let i = 0; 1 < product.images.length; i++) {
+        await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+      }
 
       if (!product) {
         return next(new LWPError("Product is not found with this id", 404));

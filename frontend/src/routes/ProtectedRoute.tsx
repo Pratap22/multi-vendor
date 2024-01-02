@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { loading, isAuthenticated } = useSelector(
     (state: LWPState) => state.user
   );
-  if (loading === "idle" || loading == "succeeded") {
+  if (loading !== 'pending') {
     if (!isAuthenticated) {
       return <Navigate to="/login" state={{ from: location }} replace />;
     }

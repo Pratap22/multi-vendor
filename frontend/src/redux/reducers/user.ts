@@ -48,6 +48,10 @@ const userSlice = createSlice({
       state.cart = state.cart.filter((i) => i._id !== action.payload);
       localStorage.setItem("user_cart", JSON.stringify(state.cart));
     },
+    emptyCart: (state) => {
+      state.cart = [];
+      localStorage.setItem("user_cart", JSON.stringify(state.cart));
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,11 +107,10 @@ const userSlice = createSlice({
       .addCase(autoLoginAsync.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "An error occurred";
-        throw action.error;
       });
   },
 });
 
-export const { addToCart, removeFromCart } = userSlice.actions;
+export const { addToCart, removeFromCart, emptyCart } = userSlice.actions;
 
 export default userSlice;

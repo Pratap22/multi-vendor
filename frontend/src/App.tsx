@@ -25,6 +25,7 @@ import CheckoutPage from "./pages/checkout/CheckoutPage";
 import { useEffect, useState } from "react";
 import lwpAxios from "./config/axiosConfig";
 import PaymentPage from "./pages/payment/PaymentPage";
+import OrderSuccess from "./pages/order/OrderSuccess";
 
 function App() {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -40,21 +41,21 @@ function App() {
 
   return (
     <BrowserRouter>
-      {stripeApikey && (
-        <Elements stripe={loadStripe(stripeApikey)}>
-          <Routes>
-            <Route
-              path="/payment"
-              element={
+      <Routes>
+        <Route
+          path="/payment"
+          element={
+            stripeApikey ? (
+              <Elements stripe={loadStripe(stripeApikey)}>
                 <ProtectedRoute>
                   <PaymentPage />
                 </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </Elements>
-      )}
-      <Routes>
+              </Elements>
+            ) : (
+              <NotFound />
+            )
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/activation/:token" element={<ActivationPage />} />
@@ -75,6 +76,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CheckoutPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order/success"
+          element={
+            <ProtectedRoute>
+              <OrderSuccess />
             </ProtectedRoute>
           }
         />

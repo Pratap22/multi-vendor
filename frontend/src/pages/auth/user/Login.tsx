@@ -24,9 +24,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
-    console.log("I am here");
     if (isAuthenticated && user) {
-      console.log("I am here inside");
       navigate(from);
     }
   }, [from, isAuthenticated, user, navigate]);
@@ -36,7 +34,7 @@ const Login = () => {
     try {
       await dispatch(loginAsync({ email, password, rememberMe }));
       toast.success("Login Success!");
-      navigate("/");
+      navigate(from);
     } catch (error) {
       const axiosError = error as AxiosError;
       toast.error(axiosError.message || "An error occurred");

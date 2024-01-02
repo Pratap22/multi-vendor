@@ -7,15 +7,19 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LWPState } from "../../redux/store";
 import lwpStyles from "../../styles";
-import { OrderData } from "../../type/order";
+import { OrderData, PaymentData } from "../../type/order";
 import { User } from "../../type/user";
 import lwpAxios from "../../config/axiosConfig";
+import { useNavigate } from "react-router-dom";
+import { emptyCart } from "../../redux/reducers/user";
 
 const Payment = () => {
   const stripe = useStripe();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const elements = useElements();
   const [orderData, setOrderData] = useState<OrderData>();
   const { user } = useSelector((state: LWPState) => state.user);
@@ -57,7 +61,23 @@ const Payment = () => {
         },
       }
     );
-    console.log("Payment Handler", result);
+    const data: PaymentData = {
+      userId: user!._id,
+      cart: orderData!.cart,
+      totalPrice: orderData!.totalPrice,
+      shippingAddress: orderData!.shippingAddress,
+      paymentInfo: {
+        id: Date.now().toString(),
+        status: "success",
+        type: "CARD",
+      },
+    };
+
+    const orderResponse = await lwpAxios.post("/order", data, {
+      withCredentials: true,
+    });
+    dispatch(emptyCart());
+    navigate("/order/success");
   };
 
   return (

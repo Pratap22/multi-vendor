@@ -5,7 +5,7 @@ const errorMiddleware = require("./middleware/error");
 const app = express();
 
 const appRouter = require("./controller");
-const requestMiddleware = require("./middleware/requestLogger");
+const morgan = require("./middleware/morgan");
 
 app.use(
   cors({
@@ -14,10 +14,11 @@ app.use(
   })
 );
 
+app.use(morgan.successHandler);
+app.use(morgan.errorHandler);
+
 app.use(express.json());
 app.use(cookieParser());
-
-app.use(requestMiddleware);
 
 app.get("/", (req, res) => {
   res.send("Home");

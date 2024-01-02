@@ -19,7 +19,6 @@ exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
       res.clearCookie("token");
       return next(new LWPError("Token is not valid! Login to continue", 401));
     }
-
     next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {

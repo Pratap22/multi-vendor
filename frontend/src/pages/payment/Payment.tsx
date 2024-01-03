@@ -53,14 +53,11 @@ const Payment = () => {
       config
     );
 
-    const result = await stripe.confirmCardPayment(
-      response.data.client_secret,
-      {
-        payment_method: {
-          card: elements.getElement(CardNumberElement)!,
-        },
-      }
-    );
+    await stripe.confirmCardPayment(response.data.client_secret, {
+      payment_method: {
+        card: elements.getElement(CardNumberElement)!,
+      },
+    });
     const data: PaymentData = {
       userId: user!._id,
       cart: orderData!.cart,
@@ -73,7 +70,7 @@ const Payment = () => {
       },
     };
 
-    const orderResponse = await lwpAxios.post("/order", data, {
+    await lwpAxios.post("/order", data, {
       withCredentials: true,
     });
     dispatch(emptyCart());

@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 import lwpAxios from "./config/axiosConfig";
 import PaymentPage from "./pages/payment/PaymentPage";
 import OrderSuccess from "./pages/order/OrderSuccess";
+import ShopAllOrders from "./pages/shop/ShopAllOrders";
 
 function App() {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -108,6 +109,14 @@ function App() {
           element={
             <ShopProtectedRoute>
               <ShopAllProducts />
+            </ShopProtectedRoute>
+          }
+        />
+        <Route
+          path="/shop-orders"
+          element={
+            <ShopProtectedRoute>
+              <ShopAllOrders />
             </ShopProtectedRoute>
           }
         />

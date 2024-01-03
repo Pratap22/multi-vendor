@@ -81,3 +81,21 @@ export const shopAutoLoginAsync = createAsyncThunk(
     }
   }
 );
+
+export const getShopOrders = createAsyncThunk(
+  "shop/orders",
+  async (shopId: string) => {
+    try {
+      const response = await lwpAxios.get(`/order/shop/${shopId}`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        throw new Error("Login failed: " + error.response?.data.message);
+      } else {
+        return Promise.reject();
+      }
+    }
+  }
+);

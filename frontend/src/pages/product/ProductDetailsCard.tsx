@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AiOutlineMessage, AiOutlineShoppingCart } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
-import { useDispatch } from "react-redux";
 import lwpStyles from "../../styles";
 import { Product } from "../../type/product";
 
@@ -14,8 +13,6 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
   setOpen,
   product,
 }) => {
-  const cart = undefined;
-  const dispatch = useDispatch();
   const [count, setCount] = useState(1);
 
   const handleMessageSubmit = () => {};
@@ -30,9 +27,9 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
     setCount(count + 1);
   };
 
-  const addToCartHandler = (id) => {
-    //
-  };
+  // const addToCartHandler = () => {
+  //   //
+  // };
 
   return (
     <div className="bg-[#fff]">
@@ -94,7 +91,7 @@ const ProductDetailsCard: React.FC<ProductDetailsCardProps> = ({
                 </div>
                 <div
                   className={`${lwpStyles.button} mt-6 rounded-[4px] h-11 flex items-center`}
-                  onClick={() => addToCartHandler(product._id)}
+                  onClick={() => {}}
                 >
                   <span className="text-[#fff] flex items-center">
                     Add to cart <AiOutlineShoppingCart className="ml-1" />

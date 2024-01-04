@@ -6,6 +6,7 @@ const app = express();
 
 const appRouter = require("./controller");
 const morgan = require("./middleware/morgan");
+const LWPError = require("./utils/error");
 
 app.use(
   cors({
@@ -20,8 +21,8 @@ app.use(morgan.errorHandler);
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Home");
+app.get("/", (req, res, next) => {
+  return next(new LWPError("User doesn't exists", 400));
 });
 
 app.get("/test", (req, res) => {

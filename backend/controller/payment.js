@@ -3,7 +3,7 @@ const loadEnv = require("dotenv");
 const Stripe = require("stripe");
 
 loadEnv.config({
-  path: "config/.env",
+  path: ".env",
 });
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 

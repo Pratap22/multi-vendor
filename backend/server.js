@@ -6,7 +6,7 @@ const db = require("./db/db");
 const configureSocket = require("./socket");
 
 loadEnv.config({
-  path: "config/.env",
+  path: ".env",
 });
 
 db.connectDatabase();
